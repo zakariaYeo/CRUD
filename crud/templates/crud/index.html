@@ -1,0 +1,38 @@
+{% extends "crud/base.html" %} {% block title %} Users {% endblock title %}
+{%block content %} {% load crispy_forms_tags %}
+<div class="row">
+  <div class="col-lg-6">
+    <form action="" method="POST" autocomplete="off">
+      {% csrf_token %} {{ form|crispy }}
+      <div class="py-3"></div>
+      <button type="submit" class="btn btn-block btn-primary">Save</button>
+    </form>
+  </div>
+  <div class="col-lg-6">
+    <table class="table">
+      <thead>
+        <th>Name</th>
+        <th>Mail</th>
+        <th>Password</th>
+      </thead>
+      <tbody>
+        {% for i in user %}
+        <tr>
+          <td>{{ i.fullName }}</td>
+          <td>{{ i.email }}</td>
+          <td>{{ i.password }}</td>
+          <td>
+            <a class="btn btn-sm btn-warning" href="{% url 'update' i.id %}">
+              <i class="fa fa-pencil"></i>
+            </a>
+            <a class="btn btn-sm btn-danger" href="{% url 'delete' i.id %}">
+              <i class="fa fa-trash"></i>
+            </a>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+{% endblock content %}
